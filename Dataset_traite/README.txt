@@ -8,5 +8,5 @@ Datset_traite contains two python files :
   - Regroup_datas.py : the other python file described above this
 
 Dataset_traite also contains two folders :
-  - train : contains dataset_intermed (files created by Separated_datas.py), dataset_studio (files created by Regroup_datas.py) and Inertial Signals (starting datas) for the train subjects.
-  - test : contains dataset_intermed (files created by Separated_datas.py), dataset_studio (files created by Regroup_datas.py) and Inertial Signals (starting datas) for the test subjects.
+  - train : contains dataset_studio (files created by Separated_datas.py then Regroup_datas.py) for the train subjects.
+  - test : contains dataset_studio (files created by Separated_datas.py then Regroup_datas.py) for the test subjects.
