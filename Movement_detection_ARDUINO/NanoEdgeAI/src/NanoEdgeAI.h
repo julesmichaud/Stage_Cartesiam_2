@@ -43,12 +43,12 @@ float output_class_buffer[CLASS_NUMBER];
 /* Array for mapping class id to class name */
 const char *id2class[CLASS_NUMBER + 1] = {
 	"unknown",
-	"1Walking",
-	"2WalkingUp",
-	"3WalkingDo",
-	"4Sitting",
-	"5Standing",
-	"6Laying",
+	"1WLK",
+	"2WUS",
+	"3WDS",
+	"4SIT",
+	"5STD",
+	"6LAY",
 };
 
 /* Function prototypes */
