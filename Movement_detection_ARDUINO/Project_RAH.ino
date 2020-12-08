@@ -1,6 +1,3 @@
-#include <NanoEdgeAI.h>
-#include <knowledge.h>
-
 /*
 This code will display what movement the Arduino card user is doing, thanks of the NanoEdgeAI librairy found before.
 Thanks to an app like LightBlue (availible on iOS and Android), you can receive datas in live.
@@ -40,7 +37,8 @@ float output_buffer[CLASS_NUMBER] = {0};
 void setup() {
   //Serial configuration, waiting 3s in order to avoid any haste
   Serial.begin(9600);
-  while(!Serial);
+  //while(!Serial);
+  delay(4000);
 
   //LED configuration, to notify the advancement
   pinMode(LED_BUILTIN, OUTPUT);
@@ -89,6 +87,7 @@ void loop() {
     digitalWrite(LED_BUILTIN, LOW);
 
     //Main loop
+    int current_nb = 0;
     int actual_class = 0;
     int previous_class = 0;
     long previousMillis = 0;
@@ -96,21 +95,28 @@ void loop() {
     {
         //We check the movement every 0.2sec. This avoids a disconnection due to a 'delay()'
         long currentMillis = millis();
-        if (currentMillis - previousMillis >= 2000)
+        if (currentMillis - previousMillis >= 200)
         {
             fill_acc_buffer();
-            actual_class = NanoEdgeAI_classifier(input_user_buffer, output_class_buffer, class_threshold);
-            get_output_values();
-            //actual_class = (acc_buffer[0]*1000 + acc_buffer[1]*1000 + acc_buffer[2]*1000)/3;
-            if (actual_class != previous_class)
+            actual_class = NanoEdgeAI_classifier(acc_buffer, output_class_buffer, class_threshold);
+            
+            //We consider that we are doing a new movement if we have 3 times in a row the same class in order to not notice for an "error"
+            if (actual_class == previous_class && current_nb == 3)
             {
               Serial.print("Mouvement n° :");
               Serial.println(actual_class);
-              get_acc_values();
               
               movementChar.writeValue(actual_class);
-      
+              current_nb ++;
+            }
+            else if (actual_class == previous_class)
+            {
+              current_nb ++;
+            }
+            else if (actual_class != previous_class)
+            {
               previous_class = actual_class;
+              current_nb = 0;
             }
             previousMillis = currentMillis;
         }
@@ -140,7 +146,7 @@ void fill_acc_buffer() {
 }
 
 void get_acc_values() {
-
+    //Prints the acceleration buffer's datas
     for (int i = 0; i < DATA_INPUT_USER; i++) 
     {
       Serial.println(acc_buffer[AXIS_NUMBER * i]);
@@ -151,6 +157,7 @@ void get_acc_values() {
 }
 
 void get_output_values() {
+  //Print each class probability
   for (int i =0; i < CLASS_NUMBER; i++)
   {
     Serial.println(output_class_buffer[i]);
