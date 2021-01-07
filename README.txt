@@ -13,6 +13,4 @@ Data were collected thanks to an Arduino code I wrote for microntroller, the "ac
 
 Once the dataset built, I wrote an Arduino code in order to developp my app on an Arduino Nano 33BLE, "Project_RAH.ino, also available in the subfolder "Code/Microcontroller_codes_arduino". In this subfolder, you can also find "libraries", containing the libraries used in order to make the code work. The "ArduinoBLE" and "Arduino_LSM9DS1" ones are available directly via the Arduino IDE, and the "NanoEdgeAI" one must be added manually to the IDE. This last one contains the classification functions with the library founded by the Studio (93% Accuracy, 92% Confidence, 1.9+1.5kB RAM).
 
-available "README.txt" is availible in there for more informations.
-
 Finaly, I wrote a preprocessing code in order to use feature selections techniques, from machine learning, on my data in order to compare the results obtained with or without preprocessing on my app performances.
