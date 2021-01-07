@@ -1,23 +1,18 @@
 ======================================
 This repertory contains documents relating to my internship at Cartesiam.
-There are 4 folders, two about the datasets used during my work, two about codes I wrote. There are also two files,
-a quick presentation about the machine learning (ML) and more specificly about the ML methods applied to recognition of human activities (RAH),
-and also a bibliography containing all the references I used during my work.
-=====================================
+There are 2 folders, one about the datasets used during my work ("Dataset"), one about codes I wrote ("Code"). There is also a quick presentation about the machine learning (ML) and more specificly about the ML methods applied to recognition of human activities (RAH).
+======================================
 
-The objective of this work was creating a RAH application for microcontroller (Arduino Nano 33BLE),
-thanks to the ML methods proposed by Cartesiam on acceleration measures.
-For an acceleration measure (according to a specific buffer size and frequency), this app have to recognize a movement among theses learned upstream.
-To make that, I searched in a first time datas to exploit. You can find these ones on the first folder : Dataset_brut.
+The objective of this work was creating a RAH application for microcontroller (Arduino Nano 33BLE), thanks to the ML methods proposed by Cartesiam on acceleration measures. For an acceleration measure (according to a specific buffer size and frequency), this app have to recognize a movement among theses learned upstream.
 
-Then, I had to find a library proposed by Cartesiam (especificly by the NanoEdgeAI Studio by Cartesiam), which creates classes each corresponding to a movement.
-Once found, I can use it in a code for an Arduino Nano 33BLE card to complete my task (a RAH app).
-But to use theses datas, I had to write them in an other format in order to use them in the NEAI Studio.
-You can find theses datas in the second folder : Dataset_traite.
+To make that, I searched in a first time datas to exploit. You can find these ones in the dataset folder : "Dataset/Dataset_online". The data found are available in the subfolder "Dataset/Dataset_online/Dataset_brut". To use them, I had to rewrite them in an other format : the rewriting codes are availible in the folder "Code/Dataset_rewriting_codes_python" ; the new dataset is available in the subfolder "Dataset/Dataset_online/Dataset_traite".
 
-After my library in my pocket, I searched to write a little C code who can try to class accelerations measure using my new library directly on PC,
-and who can be easily changed to work on a STM microcontroller.
-However, the library is designed to be used on a microcontroller so the code doesn't work as it, but it can be used to write a new one for a STM card.
-You can find this code in the third folder : Movement_detection_PC.
+But unfortunalty this dataset coudn't be used for some reasons. That's why I did a personal dataset available in the dataset folder : "Dataset/Dataset_personal". I collected data 50 buffers by 50 buffers, the different files are available in the subfolder Dataset/Dataset_personal/Dataset_brut. The regrouped data, used as personal dataset, are available in the subfolder "Dataset/Dataset_personal/Dataset_traite".
+The last subfolder, "Dataset/Dataset_personal/Dataset_test" contains data separated by buffers number in order to make some tests.
+Data were collected thanks to an Arduino code I wrote for microntroller, the "acc_buffers.ino" one, available in the subfolder "Code/Microcontroller_codes_arduino".
 
-Finaly, I wrote an Arduino code in order to developp my app on an Arduino Nano 33BLE, the code is availible in the last folder : Movement_detection_ARDUINO.
+Once the dataset built, I wrote an Arduino code in order to developp my app on an Arduino Nano 33BLE, "Project_RAH.ino, also available in the subfolder "Code/Microcontroller_codes_arduino". In this subfolder, you can also find "libraries", containing the libraries used in order to make the code work. The "ArduinoBLE" and "Arduino_LSM9DS1" ones are available directly via the Arduino IDE, and the "NanoEdgeAI" one must be added manually to the IDE. This last one contains the classification functions with the library founded by the Studio (93% Accuracy, 92% Confidence, 1.9+1.5kB RAM).
+
+available "README.txt" is availible in there for more informations.
+
+Finaly, I wrote a preprocessing code in order to use feature selections techniques, from machine learning, on my data in order to compare the results obtained with or without preprocessing on my app performances.
